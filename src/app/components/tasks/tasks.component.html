@@ -1,0 +1,72 @@
+<section>
+  <div class="container">
+    <div class="alert alert-danger alert-dismissible fade show" *ngIf="error" role="alert">
+      <strong>Error</strong> {{error}}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="removeErr()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div class="alert alert-success alert-dismissible fade show" *ngIf="alert" role="alert">
+      <strong>Alert</strong> {{alert}}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="removeAlert()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <button type="button" class="btn btn-outline-dark w-25 ml-4" (click)="addTask()">Add Task</button>
+  
+    <div class="row" *ngIf="tasks">
+
+      <div class="col-md-6 p-5">
+        <p class="font-weight-bold h4">To do</p>
+        <div *ngFor="let task of tasks">
+          <div class="card mt-2" *ngIf="!task.done">
+            <div class="card-body">
+              <button class="btn drop dropdown-toggle dropdown-toggle-split" [matMenuTriggerFor]="menu"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="sr-only">Toggle Dropdown</span>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="editTask(task)">Edit</button>
+                <button mat-menu-item (click)="viewTask(task)">View</button>
+                <button mat-menu-item [routerLink]="['/workflow/task.workflowId']">Show Workflow</button>
+                <button mat-menu-item class="alert-danger" (click)="delete(task)">Delete </button>
+              </mat-menu>
+              <h5 class="card-title" *ngIf="task.workflowData[0]">{{task.workflowData[0].name}}</h5>
+              <h5 class="card-title text-danger" *ngIf="!task.workflowData[0]">No workflow specified</h5>
+              <h6 class="card-subtitle mb-2 text-muted">{{task.name}}</h6>
+              <p class="card-text">{{task.description}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 p-5">
+        <p class="font-weight-bold h4">Done</p>
+        <div *ngFor="let task of tasks">
+          <div class="card mt-2" *ngIf="task.done">
+            <div class="card-body">
+              <button class="btn drop dropdown-toggle dropdown-toggle-split" [matMenuTriggerFor]="menu"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="sr-only">Toggle Dropdown</span>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="editTask(task)">Edit</button>
+                <button mat-menu-item (click)="viewTask(task)">View</button>
+                <button mat-menu-item [routerLink]="['/workflow/task.workflowId']">Show Workflow</button>
+                <button mat-menu-item class="alert-danger" (click)="delete(task)">Delete </button>
+              </mat-menu>
+              <h5 class="card-title" *ngIf="task.workflowData[0]">{{task.workflowData[0].name}}</h5>
+              <h5 class="card-title text-danger" *ngIf="!task.workflowData[0]">No workflow specified</h5>
+              <h6 class="card-subtitle mb-2 text-muted">{{task.name}}</h6>
+              <p class="card-text">{{task.description}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</section>

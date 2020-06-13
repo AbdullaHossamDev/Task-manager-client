@@ -1,0 +1,86 @@
+<div class="container">
+  <form class="container mt-auto" #form="ngForm" (ngSubmit)="save(form.value)">
+
+    <div class="row">
+      <div class="form-group col-md-5 offset-1">
+        <label>Task name</label>
+        <input type="text" class="form-control" name="name" [(ngModel)]="task.name" required>
+      </div>
+
+      <div class="form-group col-md-5  offset-1">
+        Start date<br>
+        <mat-form-field class="pt-0 mt-0">
+          <input matInput [matDatepicker]="picker" name="date" [(ngModel)]="task.startDate" [min]="minDate"
+            [max]="maxDate" ngModel>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-md-11 offset-1">
+        <textarea class="form-control" name="body" rows="3" [(ngModel)]="task.description"
+          placeholder="Task description" #body='ngModel' required></textarea>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="!data.workflowId">
+      <div class="form-group col-md-5 offset-1">
+        <label>Workflow</label>
+        <select class="form-control" (change)="selectedWorkflow($event)">
+          <option value=""></option>
+          <option *ngFor="let workflow of workflowArr" [value]="workflow._id">{{workflow.name}}</option>
+        </select>
+      </div>
+
+      <div class="form-group col-md-5 offset-1">
+        <label>Stages</label>
+        <select class="form-control" (change)="selectedStage($event)">
+
+          <option *ngFor="let stage of stages" [value]="stage">{{stage}}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="data.workflowId">
+      <div class="form-group col-md-5 offset-1">
+        <label>Workflow</label>
+        <input type="text" class="form-control" name="workflow" [(ngModel)]="workflowName" disabled >
+      </div>
+
+      <div class="form-group col-md-5 offset-1">
+        <label>Stages</label>
+        <select class="form-control" (change)="selectedStage($event)">
+          <option *ngFor="let stage of stages" [value]="stage" [selected] ="task.stage == stage">{{stage}}</option>
+        </select>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="form-group col-md-5 offset-1">
+        <label>Finished</label>
+        <select class="form-control" (change)="selectedDone($event)">
+          <option value="false" [selected] ="!task.done">Not done</option>
+          <option value="true" [selected] ="task.done">Done</option>
+        </select>
+      </div>
+
+      <div class="form-group col-md-5  offset-1" *ngIf="task.done && task.endDate">
+        End date<br>
+        <mat-form-field>
+          <input matInput [matDatepicker]="picker" name="date" [(ngModel)]="task.endDate" [min]="minDate"
+            [max]="maxDate" ngModel>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="col-md-6 offset-3">
+      <button type="submit" class="btn btn-lg btn-block btn-primary text-uppercase mb-1"
+        [disabled]="!form.valid">{{data._id ? 'Update': 'Add task '}}</button>
+    </div>
+  </form>
+</div>

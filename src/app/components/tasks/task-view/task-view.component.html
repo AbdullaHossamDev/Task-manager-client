@@ -1,0 +1,45 @@
+<section>
+  <div class="container m-auto">
+
+    <div class="mb-2 border p-2" *ngIf="data.workflowId">
+      <label class="h5 pb-2 text-info" >Workflow name</label><br>
+      <label class="h6">{{workflowName}}</label>
+    </div>
+
+    <div class="mb-2 border p-2">
+      <label class="h5 pb-2 text-info">Task name</label><br>
+      <label class="h6">{{data.name}}</label>
+    </div>
+
+    <div class="mb-2 border p-2">
+      <label class="h5 pb-2 text-info">Task description</label><br>
+      <label class="h6">{{data.description}}</label>
+    </div>
+
+    <div class="mb-2 border p-2" *ngIf="data.workflowId">
+      <label class="h5 pb-2 text-info">Task stage</label><br>
+      <label class="h6">{{data.stage}}</label>
+    </div>
+    
+    <div class="mb-2 border p-2">
+      <label class="h5 pb-2 text-info">Task finished</label><br>
+      <label class="h6">{{data.done ? 'Finished' : 'Not finished'}}</label>
+    </div>
+
+    <div class="mb-2 border p-2">
+      <label class="h5 pb-2 text-info">Established At</label><br>
+      <label class="h6">{{data.createdAt |  date}} </label>
+    </div>
+
+    <div class="mb-2 border p-2">
+      <label class="h5 pb-2 text-info">Started At</label><br>
+      <label class="h6">{{data.startDate |  date}} </label>
+    </div>
+
+    <div class="mb-2 border p-2" *ngIf="data.done">
+      <label class="h5 pb-2 text-info">End At</label><br>
+      <label class="h6">{{data.endDate |  date}} </label>
+    </div>
+
+  </div>
+</section>
