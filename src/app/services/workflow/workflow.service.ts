@@ -20,7 +20,7 @@ export class WorkflowService {
   }
 
   getWorkflow(id){
-    return this.http.get<any>(`${this.baseUrl}/workflow/${id}`);
+    return this.http.get<any>(`${this.baseUrl}/workflow/get/${id}`);
   }
 
   update(workflowUpdated){

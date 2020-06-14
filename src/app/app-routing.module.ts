@@ -5,6 +5,9 @@ import { RegisterComponent } from './components/auth/register/register.component
 import { AuthGuardGuard } from './services/auth/guard/auth-guard.guard';
 import { AppComponent } from './app.component';
 import { TasksComponent } from './components/tasks/tasks.component';
+import { WorkflowsComponent } from './components/workflows/workflows.component';
+import { WorkflowViewComponent } from './components/workflows/workflow-view/workflow-view.component';
+import { ProfileComponent } from './components/auth/profile/profile.component';
 
 
 const routes: Routes = [
@@ -20,7 +23,10 @@ const routes: Routes = [
   {
     path: 'home', children: [
       { path: '', redirectTo: 'tasks', pathMatch: 'full' },
-      { path: 'tasks', component: TasksComponent }
+      { path: 'tasks', component: TasksComponent },
+      { path: 'workflows', component: WorkflowsComponent },
+      { path: 'workflow/:id', component: WorkflowViewComponent },
+      { path: 'profile', component: ProfileComponent },
     ],
     canActivate: [AuthGuardGuard]
   }

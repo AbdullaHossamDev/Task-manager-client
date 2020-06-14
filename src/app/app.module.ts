@@ -17,6 +17,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { TaskDetailComponent } from './components/tasks/task-detail/task-detail.component';
 import { TaskViewComponent } from './components/tasks/task-view/task-view.component';
+import { WorkflowsComponent } from './components/workflows/workflows.component';
+import { WorkflowDetailsComponent } from './components/workflows/workflow-details/workflow-details.component';
+import { WorkflowViewComponent } from './components/workflows/workflow-view/workflow-view.component';
+import { ProfileComponent } from './components/auth/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +31,10 @@ import { TaskViewComponent } from './components/tasks/task-view/task-view.compon
     TasksComponent,
     TaskDetailComponent,
     TaskViewComponent,
+    WorkflowsComponent,
+    WorkflowDetailsComponent,
+    WorkflowViewComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

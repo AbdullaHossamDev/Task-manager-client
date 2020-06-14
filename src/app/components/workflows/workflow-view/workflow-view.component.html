@@ -1,0 +1,68 @@
+<div class="container">
+  <div class="alert alert-danger alert-dismissible fade show" *ngIf="error" role="alert">
+    <strong>Error</strong> {{error}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="removeErr()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  
+  <div class="alert alert-success alert-dismissible fade show" *ngIf="alert" role="alert">
+    <strong>Alert</strong> {{alert}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="removeAlert()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+</div>
+
+<div *ngIf="workflow">
+
+  <button type="button" class="btn btn-outline-dark ml-4 mb-4" (click)="editWorkflow()"
+    *ngIf="workflow.createdBy == myId">Edit Workflow</button>
+  <button type="button" class="btn btn-outline-dark ml-4 mb-4" (click)="addWorkflow()">Add Workflow</button>
+  <button type="button" class="btn btn-outline-dark ml-4 mb-4" (click)="addTask()">Add Task</button>
+
+  <div class="float-right" style="margin-right: 7%;">
+    <h3>
+      {{workflow.name}}
+      <small [class]="workflow.status == 'private'? 'text-danger' : 'text-success'">{{workflow.status}}</small>
+    </h3>
+  </div><br>
+
+
+  <div class="overflow-auto w-100 h_container">
+    <div class="d-flex align-self-stretch flex-fill flex-row bd-highlight mb-3 m-auto"
+      [class]="workflow.stages.length > 5? '' :'justify-content-center'" *ngIf="workflow">
+      <div class="p-2  ml-2 mr-2 w_flex" style=" min-height: 36rem;" *ngFor="let stage of workflow.stages">
+        <div class="border-bottom ">
+          <h5>
+            {{stage}}
+            <small class="text-muted">- {{stages[stage].length}}. items</small>
+          </h5>
+        </div>
+        <div style="background-color: #f5f5f5;" *ngFor="let task of stages[stage]">
+
+          <div class="card mt-2 mb-2 ml-1 mr-1 ">
+            <div class="card-body">
+              <button class="btn drop dropdown-toggle dropdown-toggle-split" [matMenuTriggerFor]="menu"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="sr-only">Toggle Dropdown</span>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="editTask(task)" *ngIf="task.createdBy == myId">Edit</button>
+                <button mat-menu-item (click)="viewTask(task)">View</button>
+                <button mat-menu-item class="alert-danger" (click)="deleteTask(task)"
+                  *ngIf="task.createdBy == myId">Delete </button>
+              </mat-menu>
+              <h5 class="card-title">{{task.name}}</h5>
+              <small class="card-subtitle mb-2 text-muted">{{task.description}}</small>
+              <p class="card-text">{{task.creator[0].name}}</p>
+              <p class="card-text" [class]="task.done? 'text-success': 'text-danger'">
+                {{task.done? 'Finished': 'Not finished'}}</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

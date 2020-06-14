@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top w-100">
   <a class="navbar-brand" href="/home" routerLinkActive="router-link-active">ScaleUp365</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -10,7 +10,15 @@
       <li class="nav-item active">
         <a class="nav-link" href="/home" routerLinkActive="router-link-active">Home <span class="sr-only">(current)</span></a>
       </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/home" routerLinkActive="router-link-active">Tasks <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/home/workflows" routerLinkActive="router-link-active">Workflows <span class="sr-only">(current)</span></a>
+      </li>
     </ul>
+
+    <button class="btn btn-dark my-2 my-sm-0" routerLink="/home/profile" *ngIf="authServ.isLoggedIn()">Profile</button>
     <button class="btn btn-dark my-2 my-sm-0" routerLink="/auth" *ngIf="!authServ.isLoggedIn()">Login</button>
     <button class="btn btn-dark my-2 my-sm-0" routerLink="/" *ngIf="authServ.isLoggedIn()" (click)="logout()">Logout</button>
   </div>

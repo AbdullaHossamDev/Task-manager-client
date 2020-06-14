@@ -21,6 +21,7 @@ export class TasksComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.tasks = [];
     this.getTasks();
   }
 
@@ -32,10 +33,15 @@ export class TasksComponent implements OnInit {
           this.tasks = data;
         } else {
           this.error = "You don't have any tasks yet"
+          this.tasks = []
         }
       },
       err => {
-        this.error = err.error
+        if(err.status == 0){
+          this.error = 'Please check your network';
+        }else{
+          this.error = err.error
+        }
       })
   }
 
@@ -48,15 +54,17 @@ export class TasksComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log('result in add: ',result)
         this.taskServ.addTask(result).subscribe(
           (data) => {
-            console.log(data)
             this.getTasks();
             this.alert = "Task added successfully";
           },
           err => {
-            this.error = err.error
+            if(err.status == 0){
+              this.error = 'Please check your network';
+            }else{
+              this.error = err.error
+            }
           }
         )
       }
@@ -72,15 +80,17 @@ export class TasksComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log('result in edit: ',result)
         this.taskServ.updateAll(result).subscribe(
           (data) => {
             this.getTasks();
             this.alert = data.msg;
           },
           err => {
-            console.log(err)
-            this.error = err.error
+            if(err.status == 0){
+              this.error = 'Please check your network';
+            }else{
+              this.error = err.error
+            }
           }
         )
       }
@@ -102,7 +112,11 @@ export class TasksComponent implements OnInit {
         this.getTasks();
       },
       err => {
-        this.error = err.error;
+        if(err.status == 0){
+          this.error = 'Please check your network';
+        }else{
+          this.error = err.error
+        }
       }
     )
   }

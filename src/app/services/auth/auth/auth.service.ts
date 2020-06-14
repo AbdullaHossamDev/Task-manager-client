@@ -34,9 +34,27 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
+  getId(){
+    return localStorage.getItem('id');
+  }
+
+  getName(){
+    return localStorage.getItem('name');
+  }
+
   logout(){
     localStorage.removeItem('token');
+    localStorage.removeItem('id');
+    localStorage.removeItem('name');
     this.router.navigate(['/auth']);
+  }
+
+  getAll(){
+    return this.http.get<any>(`${this.baseUrl}/user/getAll`);
+  }
+
+  getMe(){
+    return this.http.get<any>(`${this.baseUrl}/user/user`);
   }
 
 }

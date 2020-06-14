@@ -1,7 +1,7 @@
 <section>
   <div class="container m-auto">
 
-    <div class="mb-2 border p-2" *ngIf="data.workflowId">
+    <div class="mb-2 border p-2" *ngIf="data.workflowId && workflowName">
       <label class="h5 pb-2 text-info" >Workflow name</label><br>
       <label class="h6">{{workflowName}}</label>
     </div>

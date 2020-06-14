@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="task">
   <form class="container mt-auto" #form="ngForm" (ngSubmit)="save(form.value)">
 
     <div class="row">
@@ -43,7 +43,7 @@
       </div>
     </div>
 
-    <div class="row" *ngIf="data.workflowId">
+    <div class="row" *ngIf="data.workflowId && workflowName">
       <div class="form-group col-md-5 offset-1">
         <label>Workflow</label>
         <input type="text" class="form-control" name="workflow" [(ngModel)]="workflowName" disabled >

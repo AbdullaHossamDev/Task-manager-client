@@ -1,0 +1,82 @@
+<div class="container">
+  <form class="container mt-auto" #form="ngForm" (ngSubmit)="save(form.value)">
+
+    <div class="row">
+      <div class="form-group col-md-6 ">
+        <label>Workflow name</label>
+        <input type="text" class="form-control" name="name" [(ngModel)]="workflow.name" required>
+      </div>
+
+      <div class="form-group col-md-6 ">
+        <label>Workflow Status</label>
+        <select class="form-control" (change)="selectedStatus($event)">
+          <option value="private" [selected]="workflow.status == 'private'">Private</option>
+          <option value="public" [selected]="workflow.status == 'public'">Public</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
+
+      <div class="form-group col-md-6 ">
+        <label>Workflow Stages</label>
+        <div class="card border addHeight form-control" >
+          <div class="card-body">
+            <div class="w-100 mb-2" *ngFor="let stage of workflow.stages">
+              <li>{{stage}}</li>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group col-md-6 ">
+        <label>New Stages</label>
+        <div class="card border addHeight form-control" >
+          <div class="card-body mb-2">
+            <div class="w-100 mb-2" *ngFor="let stage1 of newStages; let i = index">
+              <button type="button" class="close" aria-label="Close" (click)="deleteStage(i)">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <li>{{stage1}}</li>
+            </div>
+            <input type="text" class="form-control" name="stage" [(ngModel)]="newStage" [required] ="workflow._id || newStages.length > 0 ? false: true ">
+          </div>
+
+        </div>
+        <button class="btn btn-light m-auto" type="button" (click)="addToNewStages() ">Add stage</button>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="workflow.status == 'private'">
+
+      <div class="form-group col-md-6 " >
+        <label>Workflow Users</label>
+        <div class="card border addHeight form-control">
+          <div class="card-body" >
+            <div class="w-100 mb-2" *ngFor="let user of workflow.usersData">
+              <button type="button" class="btn btn-outline-success" (click)="removefromUsersData(user)">{{user.name}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group col-md-6 " >
+        <label>Users</label>
+        <div class="card border addHeight form-control">
+          <div class="card-body" >
+            <div class="w-100 mb-2" *ngFor="let user of users">
+              <button type="button" class="btn btn-outline-danger" (click)="addToUsersData(user)">{{user.name}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="col-md-6 offset-3">
+      <button type="submit" class="btn btn-lg btn-block btn-primary text-uppercase mb-1"
+        [disabled]="!form.valid || !(workflow._id || newStages.length > 0) ">{{data._id ? 'Update': 'Add workflow '}}</button>
+    </div>
+  </form>
+</div>

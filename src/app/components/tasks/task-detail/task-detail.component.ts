@@ -1,6 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-// import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { WorkflowService } from 'src/app/services/workflow/workflow.service';
 
 @Component({
@@ -29,30 +28,33 @@ export class TaskDetailComponent implements OnInit {
     this.workflowServ.getAll().subscribe(
       (data) => {
         this.workflowArr = data;
-        if(this.data._id){
+        if(this.data.workflowId){
           let workflow = this.workflowArr.find(wf => wf._id == this.data.workflowId);
           
           this.workflowName = workflow.name;
           this.stages = workflow.stages;
+          if (this.data._id) {
+            this.task = JSON.parse(JSON.stringify(this.data));
+          }
+          else {
+            this.task = {
+              name: '',
+              description: '',
+              startDate: new Date(),
+              stage: String,
+              workflowId: this.data.workflowId,
+              done: false
+            }
+            if(this.data.workflowId){
+              this.task.stage = this.stages[0]
+            }
+          }
+      
+          this.minDate = new Date(this.task.startDate - 2, 0, 1);
+          this.maxDate = new Date(this.task.startDate + 10, 11, 31);
         }
       }
     )
-    if (this.data._id) {
-      this.task = JSON.parse(JSON.stringify(this.data));
-    }
-    else {
-      this.task = {
-        name: '',
-        description: '',
-        startDate: new Date(),
-        stage: String,
-        workflowId: String,
-        done: false
-      }
-    }
-
-    this.minDate = new Date(this.task.startDate - 2, 0, 1);
-    this.maxDate = new Date(this.task.startDate + 10, 11, 31);
   }
 
   save(formData) {

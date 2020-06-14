@@ -21,13 +21,17 @@ export class LoginComponent implements OnInit {
     this.removeErr();
     this.authServ.login(LoginData).subscribe(
       (data: any)=>{
-        console.log('data',data);
         localStorage.setItem('token', data.token);
+        localStorage.setItem('id', data.id);
+        localStorage.setItem('name', data.name);
         this.router.navigate(['/home'])
       },
       err => {
-        console.log('err',err)
-        this.error = err.error
+        if(err.status == 0){
+          this.error = 'Please check your network';
+        }else{
+          this.error = err.error
+        }
       }
     )
   }

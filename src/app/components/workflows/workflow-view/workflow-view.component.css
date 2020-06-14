@@ -1,0 +1,24 @@
+.w_flex{
+  flex: 0 0 18%;
+}
+
+.h_container{
+  min-height: 36rem;
+  text-align: center;
+}
+
+.centering{
+  margin: 0 50%!important;
+  transform: translate(-50%, 0);
+}
+
+.drop{
+  position: absolute;
+  top: 2%;
+  right: 2%;
+}
+
+.newww{
+  width: 200px;
+  
+}

@@ -16,7 +16,7 @@
 
     <button type="button" class="btn btn-outline-dark w-25 ml-4" (click)="addTask()">Add Task</button>
   
-    <div class="row" *ngIf="tasks">
+    <div class="row" *ngIf="tasks.length > 0">
 
       <div class="col-md-6 p-5">
         <p class="font-weight-bold h4">To do</p>
@@ -30,7 +30,7 @@
               <mat-menu #menu="matMenu">
                 <button mat-menu-item (click)="editTask(task)">Edit</button>
                 <button mat-menu-item (click)="viewTask(task)">View</button>
-                <button mat-menu-item [routerLink]="['/workflow/task.workflowId']">Show Workflow</button>
+                <button mat-menu-item routerLink="/home/workflow/{{task.workflowId}}" *ngIf="task.workflowId">Show Workflow</button>
                 <button mat-menu-item class="alert-danger" (click)="delete(task)">Delete </button>
               </mat-menu>
               <h5 class="card-title" *ngIf="task.workflowData[0]">{{task.workflowData[0].name}}</h5>
@@ -54,7 +54,7 @@
               <mat-menu #menu="matMenu">
                 <button mat-menu-item (click)="editTask(task)">Edit</button>
                 <button mat-menu-item (click)="viewTask(task)">View</button>
-                <button mat-menu-item [routerLink]="['/workflow/task.workflowId']">Show Workflow</button>
+                <button mat-menu-item routerLink="/home/workflow/{{task.workflowId}}" *ngIf="task.workflowId">Show Workflow</button>
                 <button mat-menu-item class="alert-danger" (click)="delete(task)">Delete </button>
               </mat-menu>
               <h5 class="card-title" *ngIf="task.workflowData[0]">{{task.workflowData[0].name}}</h5>
