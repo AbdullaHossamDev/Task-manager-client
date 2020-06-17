@@ -33,26 +33,26 @@ export class TaskDetailComponent implements OnInit {
           
           this.workflowName = workflow.name;
           this.stages = workflow.stages;
-          if (this.data._id) {
-            this.task = JSON.parse(JSON.stringify(this.data));
-          }
-          else {
-            this.task = {
-              name: '',
-              description: '',
-              startDate: new Date(),
-              stage: String,
-              workflowId: this.data.workflowId,
-              done: false
-            }
-            if(this.data.workflowId){
-              this.task.stage = this.stages[0]
-            }
-          }
-      
-          this.minDate = new Date(this.task.startDate - 2, 0, 1);
-          this.maxDate = new Date(this.task.startDate + 10, 11, 31);
         }
+        if (this.data._id) {
+          this.task = JSON.parse(JSON.stringify(this.data));
+        }
+        else {
+          this.task = {
+            name: '',
+            description: '',
+            startDate: new Date(),
+            stage: String,
+            workflowId: this.data.workflowId,
+            done: false
+          }
+          if(this.data.workflowId){
+            this.task.stage = this.stages[0]
+          }
+        }
+    
+        this.minDate = new Date(this.task.startDate - 2, 0, 1);
+        this.maxDate = new Date(this.task.startDate + 10, 11, 31);
       }
     )
   }
